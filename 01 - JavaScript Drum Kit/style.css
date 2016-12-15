@@ -1,6 +1,6 @@
 html {
   font-size: 10px;
-  background:url(http://i.imgur.com/b9r5sEL.jpg) bottom center;
+  background:url(http://thinkingaboutmusic.com/wp-content/uploads/2014/10/drums_0003_dw_terry_bozzio_2560-s2560x1600-131759.jpg) bottom center;
   background-size: cover;
 }
 body,html {
@@ -37,7 +37,7 @@ body,html {
   box-shadow: 0 0 10px #ffc600;
 }
 
-kbd {
+key {
   display: block;
   font-size: 40px;
 }
@@ -47,4 +47,16 @@ kbd {
   text-transform: uppercase;
   letter-spacing: 1px;
   color:#ffc600;
+}
+
+.attrib {
+  width: 100vw;
+  min-height: 60px;
+  color: white;
+  background: #333;
+  padding: .5rem;
+  text-align: right;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
 }
