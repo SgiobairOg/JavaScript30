@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=device-width, initial-scale=1.0">
+    
+    <style type="text/css">
+      :root {
+        --base: #f7c235;
+        --spacing: 10px;
+        --blur: 10px;
+      }
+      
+      img {
+        padding: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+      }
+      
+      .highlight {
+        color: var(--base);
+      }
+      
+      body {
+        text-align: center;
+        background: #193549;
+        color: white;
+        font-family: 'helvetica neue', sans-serif;
+        font-weight: 100;
+        font-size: 32px;
+      }
+      
+      
+      h1 {
+        font-size: 4rem ;
+      }
+
+      .controls {
+        margin-bottom: 50px;
+      }
+
+      .controls input {
+        width: 12rem;
+        min-height: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Updating CSS Variables with <span class="highlight">JavaScript</span></h1>
+    
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+      
+      <label for="blur">Blur:</label>
+      <input type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+      
+      <label for="base">Base Color</label>
+      <input type="color" name="base" value="#f7c235">
+    </div>
+    
+    <img src="http://www.omao.noaa.gov/sites/default/files/styles/960_wide/public/media/NOAA%20Ship%20Fairweather_Photo%20courtesy%20NOAA.jpg?itok=QjUYO8fw">
+    
+    <script type="text/javascript">
+      const  inputs = document.querySelectorAll('.controls input');
+    
+      function handleUpdate() {
+        const suffix = this.dataset.sizing || '';
+        
+        document.documentElement.style.setProperty( `--${this.name}`, this.value + suffix );
+      }
+    
+      inputs.forEach( input => input.addEventListener('change', handleUpdate));
+      inputs.forEach( input => input.addEventListener('mousemove', handleUpdate));
+    </script>
+    
+  </body>
+</html>
