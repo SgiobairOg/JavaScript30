@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <title>JavaScript 30 | Day 08 HTML5 Canvas</title>
+  <meta charset="UTF-8">
+  
+  <style>
+  html, body {
+    margin: 0;
+  }
+  
+  </style>
+</head>
+<body>
+  <canvas id="draw" width="800" height="800"></canvas>
+
+  <script type="text/javascript">
+    const canvas = document.querySelector('#draw');
+    const context = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    context.strokeStyle = "#B4D455";
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
+    context.lineWidth = 50;
+    //context.globalCompositeOperation = 'multiply';
+    
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let hue = 0;
+    let direction = true;
+    
+    function draw( event ) {
+      if ( isDrawing ) {
+        context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        
+        context.beginPath();
+        //start from
+        context.moveTo(lastX, lastY);
+        //move to
+        context.lineTo( event.offsetX, event.offsetY);
+        //stroke line
+        context.stroke();
+        
+        //update variables
+        [lastX, lastY] = [event.offsetX, event.offsetY];
+        hue += 1;
+        if ( hue >= 360 ) {
+          hue = 0;
+        }
+        console.log( context.lineWidth, direction);
+        if( context.lineWidth >= 100 || context.lineWidth <= 1 ) {
+          direction = !direction;
+        }
+        if( direction ) {
+          context.lineWidth += 1;
+        } else {
+          context.lineWidth -= 1;
+        }
+      }
+    }
+    
+    canvas.addEventListener( 'mousemove', draw );
+    canvas.addEventListener( 'mousedown', ( event ) => {
+      isDrawing = true;
+      [lastX, lastY] = [event.offsetX, event.offsetY];
+     });
+    canvas.addEventListener( 'mouseup', () => isDrawing = false );
+    canvas.addEventListener( 'mouseout', () => isDrawing = false );
+    
+    
+  </script>
+
+</body>
+</html>
