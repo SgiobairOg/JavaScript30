@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <title>JavaScript 30 | Day 06 Ajax Type Ahead</title>
+  <meta charset="UTF-8">
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+</head>
+<body>
+  <form class="search-form">
+    <label for="cityOrState" class="search-label">City or State</label>
+    <input type="text" class="search" name="cityOrState">
+    <ul class="suggestions">
+      <li>Filter for a City</li>
+      <li>or a State</li>
+    </ul>
+  </form>
+  
+  <script type="text/javascript">
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    
+    const cities = [];
+    
+    fetch( endpoint )
+      .then( blob  => blob.json() )
+      .then( data => cities.push ( ...data ) );
+      
+    function findMatches( wordToMatch, cities ) {
+      return cities.filter( place => {
+        const regex = new RegExp( wordToMatch, 'gi' );
+        return place.city.match( regex ) || place.state.match( regex )
+      });
+    }
+    
+    function toHighlighted( regex, source, match ) {
+      return source.replace( regex, `<span class='hl'>${match}</span>`)
+    }
+    
+    function numberWithCommas( n ) {
+      return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+      
+    function displayMatches() {
+      const matchArray = findMatches( this.value, cities );
+      const html = matchArray.map(place => {
+        
+        const regex = new RegExp( this.value, 'gi' );
+        
+        const cityName = toHighlighted( regex, place.city, this.value );
+        const stateName = toHighlighted( regex, place.state, this.value );
+        
+        return `
+          <li>
+            <span class="name">${cityName}, ${stateName}</span>
+            <span class="popuplation">${numberWithCommas(place.population)}</span>
+          </li>`
+      }).join('');
+      
+      suggestions.innerHTML = html;
+      
+    }
+    
+    const searchIn = document.querySelector('.search');
+    const suggestions = document.querySelector('.suggestions');
+    
+    searchIn.addEventListener( 'change', displayMatches );
+    searchIn.addEventListener( 'keyup', displayMatches );
+    
+  </script>
+  
+</body>
+</html>
+  
+  

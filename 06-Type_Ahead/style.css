@@ -1,6 +1,6 @@
     html {
       box-sizing: border-box;
-      background:#ffc600;
+      background:#DBB129;
       font-family:'helvetica neue';
       font-size: 20px;
       font-weight: 200;
@@ -40,7 +40,7 @@
       position: relative;
       /*perspective:20px;*/
     }
-    .suggestions li {
+    .suggestions li, .search-label {
       background:white;
       list-style: none;
       border-bottom: 1px solid #D8D8D8;
@@ -60,6 +60,11 @@
     .suggestions li:nth-child(odd) {
       transform: perspective(100px) rotateX(-3deg) translateY(3px);
       background: linear-gradient(to top,  #ffffff 0%,#EFEFEF 100%);
+    }
+    
+    .search-label {
+      transform: perspective(100px) rotateX(3deg) translateY(10px) scale(1.001);
+      background: linear-gradient(to bottom,  #ffffff 0%,#EFEFEF 100%);
     }
 
     span.population {
