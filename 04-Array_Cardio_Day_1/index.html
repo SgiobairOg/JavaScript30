@@ -33,17 +33,49 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    
+    console.table(
+      inventors.filter( function( inventor ) {
+        if ( 1500 <= inventor.year && inventor.year < 1600 ) { 
+          return inventor; 
+        } 
+      })
+    );
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    
+    console.table(
+      inventors.map( function( inventor ) {
+        return { firstName: inventor.first, lastName: inventor.last };
+      })
+    );
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    console.log("Sort by Birthdate");
+    console.table(
+      inventors.sort( function( inventorA, inventorB ) {
+        return inventorA.year - inventorB.year;
+      })
+    );
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    console.log("How many years did they live");
+    console.log(
+      inventors.reduce( function( years, inventor ) {
+        return years + ( inventor.passed - inventor.year )
+      }, 0)
+    );
 
     // 5. Sort the inventors by years lived
+    console.log("Sort by years lived");
+    console.table(
+      inventors.sort( function( inventorA, inventorB ) {
+        return (inventorB.passed - inventorB.year) - (inventorA.passed - inventorA.year);
+      })
+    );
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -51,11 +83,31 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    console.log("Sort by last name");
+    console.log(
+      people.sort( function( personA, personB ) {
+        const [alast, afirst] = personA.split(', ');
+        const [blast, bfirst] = personB.split(', ');
+        
+        return alast.localeCompare( blast );
+      })
+    );
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    var counts = []; 
+    
+    console.log(
+      data.reduce( function( collection, item ) {
+        if( !collection[item] ) {
+          collection[item] = 0;
+        }
+        collection[item] += 1;
+        return collection;
+      }, {})
+    );
   </script>
 </body>
 </html>
