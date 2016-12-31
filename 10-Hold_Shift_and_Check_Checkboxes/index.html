@@ -15,7 +15,7 @@
     padding: 0;
   }
   body {
-    background-color: rgba(56, 189, 232, 1);
+    background-color: rgba(56,189,232,1.0);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,16 +25,31 @@
     padding: 0;
     margin: 30px;
     background-color: #fff;
+    background-clip: border-box;
+    border-radius: 5px;
+    -webkit-box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.26);
+    -moz-box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.26);
+    box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.26);
+    
   }
   .inbox li {
-    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,0.10);
+    color: rgba(0,0,0,0.64);
     border-bottom: 0px;
     display: flex;
     justify-content: left;
     align-items: center;
   }
+  .inbox li:last-child {
+    border-radius: 0 0 5px 5px;
+  }
+  .inbox li:first-child {
+    border-radius: 5px 5px 0 0;
+  }
+  .inbox li.checked {
+    background: rgba(255,255,232,0.80);;
+  }
   .inbox li input {
-    border-right: 1px solid #ccc;
     margin: 15px;
     display: block;
   }
@@ -43,7 +58,7 @@
     font-size: 14px;
     font-weight: 200;
     padding: 15px;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid rgba(56,189,232,0.70);;
     height: 100%;
   }
   </style>
@@ -119,17 +134,21 @@
       checkIndex.first = parseInt( event.target.dataset.index );
       
       if( checkIndex.first > checkIndex.last ) {
-        for( i = checkIndex.last; i < checkIndex.first; i++ ) {
+        for( i = checkIndex.last; i <= checkIndex.first; i++ ) {
           checks[i].checked = true;
+          checks[i].parentElement.classList.add('checked');
         }
       } else {
-        for( i = checkIndex.first; i < checkIndex.last; i++ ) {
+        for( i = checkIndex.first; i <= checkIndex.last; i++ ) {
           checks[i].checked = true;
+          checks[i].parentElement.classList.add('checked');
         }
       }
     } else {
       checkIndex.last = parseInt( event.target.dataset.index );
+      event.target.parentElement.classList.toggle('checked');
     }
+    
     return true;
   }
   
