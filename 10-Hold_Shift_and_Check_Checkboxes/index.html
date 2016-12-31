@@ -1,0 +1,152 @@
+<!doctype html>
+<head>
+  <title>JavaScript 30 | Day 10 Shift-clicking Boxes</title>
+  <meta charset="UTF-8">
+  
+  <style type="text/css">
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  body, html {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: rgba(56, 189, 232, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .inbox {
+    list-style: none;
+    padding: 0;
+    margin: 30px;
+    background-color: #fff;
+  }
+  .inbox li {
+    border: 1px solid #ccc;
+    border-bottom: 0px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+  .inbox li input {
+    border-right: 1px solid #ccc;
+    margin: 15px;
+    display: block;
+  }
+  .inbox li p {
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 200;
+    padding: 15px;
+    border-left: 1px solid #ccc;
+    height: 100%;
+  }
+  </style>
+</head>
+<body>
+  <ul class="inbox">
+    <li>
+      <input data-index="0" type="checkbox">
+      <p>Mlkshk mustache selfies paleo</p>
+    </li>
+    <li>
+      <input data-index="1" type="checkbox">
+      <p>90's ethical affogato banh mi vinyl</p>
+    </li>
+    <li>
+      <input data-index="2" type="checkbox">
+      <p>before they sold out man bun hot chicken</p>
+    </li>
+    <li>
+      <input data-index="3" type="checkbox">
+      <p>stumptown lyft edison bulb</p>
+    </li>
+    <li>
+      <input data-index="4" type="checkbox">
+      <p>Kitsch tote bag try-hard</p>
+    </li>
+    <li>
+      <input data-index="5" type="checkbox">
+      <p>messenger bag fap green juice</p>
+    </li>
+    <li>
+      <input data-index="6" type="checkbox">
+      <p>iPhone tacos selvage taxidermy waistcoat</p>
+    </li>
+    <li>
+      <input data-index="7" type="checkbox">
+      <p>Next level polaroid ethical, brooklyn</p>
+    </li>
+    <li>
+      <input data-index="8" type="checkbox">
+      <p>Narwhal gastropub tote bag skateboard</p>
+    </li>
+    <li>
+      <input data-index="9" type="checkbox">
+      <p>Leggings narwhal art party</p>
+    </li>
+    <li>
+      <input data-index="10" type="checkbox">
+      <p>try-hard intelligentsia salvia</p>
+    </li>
+    <li>
+      <input data-index="11" type="checkbox">
+      <p>chicharrones ramps tumeric hell of tacos</p>
+    </li>
+    <li>
+      <input data-index="12" type="checkbox">
+      <p>XOXO intelligentsia gentrify</p>
+    </li>
+    <li>
+      <input data-index="13" type="checkbox">
+      <p>tousled roof party</p>
+    </li>
+  </ul>
+</body>
+<script type="text/javascript">
+  var shift = false;
+  var checkIndex = { first: 0, last: 0 };
+  const checks = document.querySelectorAll('input');
+  
+  const checkAll = function( event ) {
+    console.log(event);
+    if( shift ) {
+      checkIndex.first = parseInt( event.target.dataset.index );
+      
+      if( checkIndex.first > checkIndex.last ) {
+        for( i = checkIndex.last; i < checkIndex.first; i++ ) {
+          checks[i].checked = true;
+        }
+      } else {
+        for( i = checkIndex.first; i < checkIndex.last; i++ ) {
+          checks[i].checked = true;
+        }
+      }
+    } else {
+      checkIndex.last = parseInt( event.target.dataset.index );
+    }
+    return true;
+  }
+  
+  const setShift = function( event ) {
+    if( event.keyCode === 16 ) {
+      shift = true;
+      
+    }
+    return true;
+  }
+  const unsetShift = function( event ) {
+    if( event.keyCode === 16 ) shift = false;
+    return true;
+  }
+  
+  checks.forEach( check => check.addEventListener( 'click', checkAll ) );
+  document.addEventListener( 'keydown', setShift );
+  document.addEventListener( 'keyup', unsetShift );
+</script>
+</html>
